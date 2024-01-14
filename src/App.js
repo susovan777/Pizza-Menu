@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactDOM } from 'react';
+import pizzaData from './data';
 import './index.css'
 
 export default function App() {
@@ -17,33 +17,44 @@ function Menu() {
   return (
     <main className='menu'>
       <h2>Our Menu</h2>
-      <Pizza
-        name='Pizza Spinaci'
-        ingrredients='Tomato, mozarella, spinach, and ricotta cheese'
-        photo='pizzas/spinaci.jpg'
-        price='12'
-      />
-      <Pizza
+      <p>
+        Authentic Italian cuisine. 6 creative dishes to choose from. All
+        from our stone oven, all organic, all delicious.
+      </p>
+      <ul className='pizzas'>
+        {
+          pizzaData.map((pizza) => <Pizza
+            // name={pizza.name}
+            // ingrredients={pizza.ingredients}
+            // photo={pizza.photoName}
+            // price={pizza.price}
+            pizza={pizza}
+            key={pizza.name}
+          />)
+        }
+      </ul>
+      {/* <Pizza
         name='Pizza Margherita'
         ingrredients='Tomato and mozarella'
         photo='pizzas/margherita.jpg'
         price='10'
-      />
+      /> */}
     </main>
   )
 }
 
 function Pizza(props) {
-  console.log(props);
+  // console.log(props.pizza);
   return (
-    <div className='pizza'>
-      <img src={props.photo} alt={props.name} />
+    <li className='pizza'>
+      <img src={props.pizza.photoName} alt={props.pizza.name} />
       <div >
-        <h3>{props.name}</h3>
-        <p>{props.ingrredients}</p>
-        <span>{props.price + 9}</span>
+        <h3>{props.pizza.name}</h3>
+        <p>{props.pizza.ingredients}</p>
+        {/* <span>₹{props.pizza.price}9</span> */}
+        <span>{props.pizza.soldOut ? 'SOLD OUT' : props.pizza.price}</span>
       </div>
-    </div>
+    </li>
   )
 }
 
@@ -56,7 +67,7 @@ function Header() {
 
   return (
     <header className='header'>
-      <h1>Fast React Pizza Co.</h1>
+      <h1>Fast Pizza Co.</h1>
     </header>
   )
 }
@@ -67,12 +78,14 @@ function Footer() {
   const close = 22;
   const isOpen = time >= open && time <= close;
 
-  // console.log(isOpen);
+  // console.log(time,isOpen);
 
   return (
     <footer className='footer'>
-      {new Date().toLocaleTimeString()}.
-      We are currently open.
+      <div className='order'>
+        <p>We are currently {isOpen ? 'open' : 'close'}.</p>
+        <button className='btn'>Order</button>
+      </div>
     </footer>
   )
 }

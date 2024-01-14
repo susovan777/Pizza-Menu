@@ -13,12 +13,36 @@ export default function App() {
   );
 }
 
-function Pizza() {
+function Menu() {
   return (
-    <div>
-      <img src="pizzas/spinaci.jpg" alt="Pizza Spinaci" />
-      <h3>Pizza</h3>
-      <p>Tomato, mozarella, spinach, and ricotta cheese</p>
+    <main className='menu'>
+      <h2>Our Menu</h2>
+      <Pizza
+        name='Pizza Spinaci'
+        ingrredients='Tomato, mozarella, spinach, and ricotta cheese'
+        photo='pizzas/spinaci.jpg'
+        price='12'
+      />
+      <Pizza
+        name='Pizza Margherita'
+        ingrredients='Tomato and mozarella'
+        photo='pizzas/margherita.jpg'
+        price='10'
+      />
+    </main>
+  )
+}
+
+function Pizza(props) {
+  console.log(props);
+  return (
+    <div className='pizza'>
+      <img src={props.photo} alt={props.name} />
+      <div >
+        <h3>{props.name}</h3>
+        <p>{props.ingrredients}</p>
+        <span>{props.price + 9}</span>
+      </div>
     </div>
   )
 }
@@ -43,23 +67,14 @@ function Footer() {
   const close = 22;
   const isOpen = time >= open && time <= close;
 
-  console.log(isOpen);
+  // console.log(isOpen);
 
   return (
     <footer className='footer'>
-      {new Date().toLocaleTimeString()}. 
+      {new Date().toLocaleTimeString()}.
       We are currently open.
     </footer>
   )
 }
 
-function Menu() {
-  return (
-    <main className='menu'>
-      <h2>Our Menu</h2>
-      <Pizza />
-      <Pizza />
-      <Pizza />
-    </main>
-  )
-}
+
